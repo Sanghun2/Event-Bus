@@ -1,8 +1,12 @@
 {
-    "name": "EventBus.Runtime",
+    "name": "EventBus.Editor",
     "rootNamespace": "",
-    "references": [],
-    "includePlatforms": [],
+    "references": [
+        "GUID:8cb2e0dd6193e6941b8c4d6ab61b0304"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
