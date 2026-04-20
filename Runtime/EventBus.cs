@@ -26,6 +26,12 @@ namespace BilliotGames
             else
                 _eventDict[key] = @event;
         }
+        public void RegisterEvent<T1, T2, T3>(string key, Action<T1, T2, T3> @event) {
+            if (_eventDict.TryGetValue(key, out var existing))
+                _eventDict[key] = Delegate.Combine(existing, @event);
+            else
+                _eventDict[key] = @event;
+        }
 
 
         public void UnregisterEvent(string key, Action @event)
@@ -33,6 +39,8 @@ namespace BilliotGames
         public void UnregisterEvent<T1>(string key, Action<T1> @event)
             => _eventDict[key] = Delegate.Remove(_eventDict[key], @event);
         public void UnregisterEvent<T1, T2>(string key, Action<T1, T2> @event)
+            => _eventDict[key] = Delegate.Remove(_eventDict[key], @event);
+        public void UnregisterEvent<T1, T2, T3>(string key, Action<T1, T2, T3> @event)
             => _eventDict[key] = Delegate.Remove(_eventDict[key], @event);
 
 
@@ -42,5 +50,7 @@ namespace BilliotGames
             => (_eventDict.GetValueOrDefault(key) as Action<T1>)?.Invoke(arg1);
         public void Invoke<T1, T2>(string key, T1 arg1, T2 arg2)
             => (_eventDict.GetValueOrDefault(key) as Action<T1, T2>)?.Invoke(arg1, arg2);
+        public void Invoke<T1, T2, T3>(string key, T1 arg1, T2 arg2, T3 arg3)
+            => (_eventDict.GetValueOrDefault(key) as Action<T1, T2, T3>)?.Invoke(arg1, arg2, arg3);
     }
 }
